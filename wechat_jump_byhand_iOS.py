@@ -61,6 +61,11 @@ def on_click(event):
     global cor
 
     ix, iy = event.xdata, event.ydata #获取点的x，y坐标值
+
+    #为中间重新开玩，刷新二次页面，若其中有一次为范围为100，100内，则重玩
+    retry_play = False
+    if ix <= 100 and iy <= 100:retry_play = True
+
     coords = [(ix, iy)]
     print('now = ', coords)
     cor.append(coords) #将点击坐标纳入列表
@@ -73,6 +78,8 @@ def on_click(event):
 
         distance = (cor1[0][0] - cor2[0][0])**2 + (cor1[0][1] - cor2[0][1])**2 #三角函数，三角求边
         distance = distance ** 0.5
+        if retry_play == True:
+            distance = 1
         print('distance = ', distance)
         jump(distance)#跳
         update = True
